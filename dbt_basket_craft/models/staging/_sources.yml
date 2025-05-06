@@ -1,0 +1,16 @@
+version: 2
+sources:
+  - name: basket_craft
+    database: basket_craft
+    schema: raw
+    tables:
+      - name: website_sessions
+        columns:
+          - name: website_session_id
+            description: Primary key for website sessions
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+          - name: utm_source
+          - name: is_repeat_session

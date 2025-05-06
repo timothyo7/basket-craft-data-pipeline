@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: stg_website_sessions
+    description: Staging model for website sessions
+    columns:
+      - name: website_session_id
+        description: Unique identifier for each website session
+        tests:
+          - unique
+          - not_null
+      - name: website_session_created_at
+        description: Timestamp when the session was created
+      - name: utm_source
+        description: Source of the UTM parameter
+      - name: is_repeat_session
+        description: Flag indicating if this is a repeat session (1) or not (0)
