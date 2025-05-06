@@ -42,5 +42,5 @@ jobs:
           python elt/basket_craft_orders_extract_load_raw.py
       
       - name: Extract and load website sessions to raw schema 
-      run: |
-        python elt/basket_craft_website_sessions_extract_load_raw.py
+        run: |
+          python elt/basket_craft_website_sessions_extract_load_raw.py
