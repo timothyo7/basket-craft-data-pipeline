@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: stg_products
+    description: Staging model for products
+    columns:
+      - name: product_id
+        description: Unique identifier for each product
+        tests:
+          - unique
+          - not_null
+      - name: product_description
+        description: Description of the product
+      - name: product_name
+        description: Name of the product
+        tests:
+          - not_null

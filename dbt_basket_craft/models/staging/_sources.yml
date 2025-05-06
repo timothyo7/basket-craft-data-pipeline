@@ -4,6 +4,20 @@ sources:
     database: basket_craft
     schema: raw
     tables:
+      - name: products
+        columns:
+          - name: product_id
+            description: Primary key for products
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        columns:
+          - name: order_id
+            description: Primary key for orders
+            tests:
+              - unique
+              - not_null
       - name: website_sessions
         columns:
           - name: website_session_id
@@ -11,6 +25,3 @@ sources:
             tests:
               - unique
               - not_null
-          - name: created_at
-          - name: utm_source
-          - name: is_repeat_session

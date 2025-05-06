@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: stg_orders
+    description: Staging model for orders
+    columns:
+      - name: order_id
+        description: Unique identifier for each order
+        tests:
+          - unique
+          - not_null
+      - name: order_created_at
+        description: Timestamp when the order was created
+      - name: website_session_id
+        description: Foreign key to website_sessions
+      - name: user_id
+        description: Foreign key to users
