@@ -3,7 +3,7 @@ name: Run Basket Craft Extract and Load to Raw
 #on:
 #  schedule:
  #   - cron: '*/15 * * * *' # runs every 15 minutes
- # workflow_dispatch:       # optional manual trigger
+ workflow_dispatch:       # optional manual trigger
 
 env:
   MYSQL_USER: ${{ secrets.MYSQL_USER }}
@@ -40,4 +40,7 @@ jobs:
       - name: Extract and load orders to raw schema 
         run: |
           python elt/basket_craft_orders_extract_load_raw.py
- 
+      
+      - name: Extract and load website sessions to raw schema 
+      run: |
+        python elt/basket_craft_website_sessions_extract_load_raw.py
