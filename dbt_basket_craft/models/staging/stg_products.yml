@@ -1,4 +1,5 @@
 version: 2
+
 models:
   - name: stg_products
     description: Staging model for products
@@ -8,9 +9,9 @@ models:
         tests:
           - unique
           - not_null
-      - name: product_description
-        description: Description of the product
       - name: product_name
-        description: Name of the product
         tests:
           - not_null
+      - name: created_at
+      - name: desscription
+      - name: loaded_at
