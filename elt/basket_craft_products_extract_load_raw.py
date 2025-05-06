@@ -7,7 +7,7 @@
 """
 # %%
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import os
 from dotenv import load_dotenv
 
@@ -42,12 +42,30 @@ mysql_engine = create_engine(mysql_conn_str)
 pg_engine = create_engine(pg_conn_str)
 
 # %%
-#Read products table from MySQL
+# Read products table from MySQL
 df = pd.read_sql('SELECT * FROM products', mysql_engine)
-#df
-
 # %%
-# Write DataFrame to products table in Postgres (raw schema)
-df.to_sql('products', pg_engine, schema='raw', if_exists='replace', index=False)
+# Create raw schema if it doesn't exist
+with pg_engine.connect() as connection:
+    connection.execute(text("CREATE SCHEMA IF NOT EXISTS raw"))
+    connection.commit()
+
+# Check if table exists and truncate it, or create it if it doesn't
+with pg_engine.connect() as connection:
+    result = connection.execute(text(
+        "SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'raw' AND table_name = 'products')"
+    ))
+    table_exists = result.scalar()
+    
+    if table_exists:
+        # Truncate the table instead of dropping it
+        connection.execute(text("TRUNCATE TABLE raw.products"))
+        connection.commit()
+        # Write data without dropping table
+        df.to_sql('products', pg_engine, schema='raw', if_exists='append', index=False)
+    else:
+        # Create new table
+        df.to_sql('products', pg_engine, schema='raw', if_exists='replace', index=False)
+
 # %%
 print(f'{len(df)} records loaded into Postgres products table.')
